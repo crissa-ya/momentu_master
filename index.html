@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Momentum Master — Realistic + Quiz</title>
+<style>
+  :root{
+    --card:#fff;
+    --bg:#eef2ff;
+    --accent:#0369a1
+  }
+  body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:#0f172a;
+    padding:18px;
+    display:flex;
+    justify-content:center
+  }
+  .wrap{
+    max-width:1100px;
+    width:100%
+  }
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 8px 30px rgba(2,6,23,0.06)
+  }
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap
+  }
+  h1{
+    margin:0;
+    font-size:20px
+  }
+  .controls{
+    display:flex;
+    gap:12px;align-items:center;
+    flex-wrap:wrap;
+    margin-top:12px
+  }
+  select,input[type=number]{
+    padding:8px;
+    border-radius:8px;
+    border:1px solid #cbd5e1
+  }
+  button{
+    background:var(--accent);
+    color:#fff;border:none;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer
+  }
+  button.secondary{
+    background:#6b7280
+  }
+  .layout{
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:14px;
+    margin-top:14px
+  }
+  canvas{
+    width:100%;
+    height:380px;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    background:#cfe8ff;
+    display:block
+  }
+  .panel{
+    background:#f8fafc;
+    padding:12px;
+    border-radius:10px;
+    border:1px dashed #cbd5e1;
+    max-height:380px;
+    overflow:auto
+  }
+  .instance{
+    background:white;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #e6eef8;
+    margin-bottom:10px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px;align-items:center
+  }
+  .instance .left{
+    font-size:14px
+  }
+  .sliders{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-top:6px
+  }
+  label{
+    font-size:13px
+  }
+  .answers{
+    margin-top:12px;
+    padding:10px;
+    border-radius:8px;
+    background:#e0f2fe;
+    border-left:6px solid #0284c7
+  }
+  .small{
+    font-size:13px;
+    color:#334155
+  }
+  .muted{
+    color:#475569;
+    font-size:13px
+  }
+  .removeBtn{
+    background:#ef4444;
+    padding:6px 8px;
+    border-radius:8px
+  }
+  .quizInput{
+    width:120px;
+    padding:6px;
+    border-radius:6px;
+    border:1px solid #cbd5e1
+  }
+  .ok{
+    background:#10b981;
+    color:white;
+    padding:6px 8px;
+    border-radius:6px;
+    border:none
+  }
+  .bad{
+    background:#ef4444;
+    color:white;
+    padding:6px 8px;
+    border-radius:6px;
+    border:none
+  }
+  .toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;padding:6px;
+    border-radius:8px;
+    background:#fff;
+    border:1px solid #cbd5e1
+  }
+  @media (max-width:980px){
+    .layout{
+      grid-template-columns:1fr
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div>
+          <h1>Momentum Master — Realistic + Quiz Mode</h1>
+          <div class="small muted">Use placeholders (simple online images). Add objects, start, and use Quiz Mode to test students.</div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="objSelect" aria-label="Choose object type"></select>
+          <button id="addObjBtn">Add Object</button>
+        </div>
+      </header>
+
+      <div class="controls">
+        <button id="startBtn">Start Simulation</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+        <button id="revealBtn" class="secondary">Reveal Answers Now</button>
+
+        <label class="toggle" style="margin-left:auto">
+          <input type="checkbox" id="quizToggle"> Quiz Mode
+        </label>
+      </div>
+
+      <div class="layout">
+        <div>
+          <canvas id="simCanvas" width="760" height="380"></canvas>
+          <div id="answersArea" class="answers" style="display:none"></div>
+        </div>
+
+        <aside class="panel">
+          <h3 style="margin:0 0 8px 0">Instances & Quiz</h3>
+          <div id="instancesList" role="list"></div>
+
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="checkBtn" class="secondary">Check Answers</button>
+            <button id="clearQuiz" class="secondary">Clear Quiz Answers</button>
+          </div>
+
+          <div class="small muted" style="margin-top:12px">
+            Tip: Turn on <b>Quiz Mode</b>, then after starting the sim, students enter computed momentum values beside each object and press <b>Check Answers</b>.
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+<script src="momentu.js"></script>
+</body>
+</html>
