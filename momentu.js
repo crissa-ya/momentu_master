@@ -690,6 +690,3 @@ function resizeCanvas(){
 window.addEventListener('resize', ()=> { setTimeout(resizeCanvas, 80); });
 resizeCanvas();
 
-// ---------- Start with 2 defaults ----------
-addInstance('car');
-addInstance('bicycle');
