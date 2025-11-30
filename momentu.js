@@ -257,43 +257,58 @@ function drawMotorcycle(inst, x, y){
 
 
 function drawBicycle(inst, x, y){
-  const s = 0.85 * inst.scale;
+  const s = 0.8 * inst.scale;
   ctx.save();
-  ctx.translate(x,y);
-  if(inst.dir<0) ctx.scale(-1,1);
+  ctx.translate(x, y);
+  if(inst.dir < 0) ctx.scale(-1, 1);
 
-  // wheels
-  drawWheel(-28*s, 18*s, 11*s, inst.angle);
-  drawWheel(28*s, 18*s, 11*s, inst.angle);
+  // WHEELS
+  drawWheel(-30*s, 12*s, 12*s, inst.angle);
+  drawWheel( 30*s, 12*s, 12*s, inst.angle);
 
   ctx.strokeStyle = inst.color;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 3*s;
+  ctx.lineCap = "round";
 
-  // frame triangle
+  // FRAME
   ctx.beginPath();
-  ctx.moveTo(-28*s, 18*s);   // rear wheel hub
-  ctx.lineTo(0, 0);          // seat post
-  ctx.lineTo(28*s, 18*s);    // front wheel hub
-  ctx.lineTo(-6*s, 18*s);    // chain bar
-  ctx.closePath();
+  // bottom tube
+  ctx.moveTo(-30*s, 12*s);
+  ctx.lineTo(5*s, 12*s);
+
+  // seat tube
+  ctx.lineTo(0*s, -12*s);
+
+  // top tube
+  ctx.lineTo(-10*s, -12*s);
+
+  // back to back wheel
+  ctx.lineTo(-30*s, 12*s);
   ctx.stroke();
 
-  // seat
-  ctx.lineWidth = 4;
+  // front tube to front wheel
   ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(-6*s, -8*s);
+  ctx.moveTo(5*s, 12*s);      // front wheel top anchor
+  ctx.lineTo(30*s, 12*s);     // front wheel center
   ctx.stroke();
 
-  // handlebar
+  // HANDLEBAR
   ctx.beginPath();
-  ctx.moveTo(28*s, 18*s);
-  ctx.lineTo(28*s, 2*s);
-  ctx.lineTo(20*s, -4*s);
+  ctx.moveTo(5*s, 12*s);      // base
+  ctx.lineTo(10*s, -18*s);    // upward stick
+  ctx.lineTo(0*s, -18*s);     // handle left
+  ctx.lineTo(20*s, -18*s);    // handle right
+  ctx.stroke();
+
+  // SEAT
+  ctx.beginPath();
+  ctx.moveTo(-5*s, -12*s);
+  ctx.lineTo(10*s, -12*s);
   ctx.stroke();
 
   ctx.restore();
 }
+
 
 
 function drawBall(inst, x, y){
